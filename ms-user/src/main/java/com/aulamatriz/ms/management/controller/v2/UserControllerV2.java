@@ -29,4 +29,9 @@ public class UserControllerV2 implements IUserDoc {
         var result = valor1 / valor2;
         return ResponseEntity.ok(result);
     }
+
+    @Override
+    public ResponseEntity<?> getByName(String name) {
+        return this.userService.getByName(name);
+    }
 }

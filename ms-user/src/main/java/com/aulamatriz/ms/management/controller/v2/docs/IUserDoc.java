@@ -36,4 +36,16 @@ public interface IUserDoc {
     @GetMapping("/division")
     ResponseEntity<?> division(@RequestParam("valor1") int valor1,
                                @RequestParam("valor2") int valor2) throws Exception;
+
+
+    @Operation(summary = "find by name")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "nombre empleado"),
+                    @ApiResponse(responseCode = "500", description = "el desarrollador la cago"),
+                    @ApiResponse(responseCode = "404", description = "endpoint no encontrado"),
+            }
+    )
+    @GetMapping("/name")
+    ResponseEntity<?> getByName(@RequestParam("name") String name);
 }

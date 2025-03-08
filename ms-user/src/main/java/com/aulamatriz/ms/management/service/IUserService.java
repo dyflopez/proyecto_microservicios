@@ -7,4 +7,6 @@ public interface IUserService {
     ResponseEntity<?> create(UserDto userDto);
 
     ResponseEntity<?> getAll();
+
+    ResponseEntity<?> getByName(String name);
 }

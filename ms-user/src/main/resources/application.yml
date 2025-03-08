@@ -20,3 +20,7 @@ springdoc:
   packages-to-scan: com.aulamatriz.ms.management.controller
 control:
   my-exception: "nuevo mensaje"
+microservice:
+  exception:
+    perzonalizada: Se genero un error del negocio
+    system: Se genera un error del sistema

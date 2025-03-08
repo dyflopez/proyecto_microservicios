@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class UserServiceImp implements IUserService {
@@ -34,5 +36,14 @@ public class UserServiceImp implements IUserService {
     public ResponseEntity<?> getAll() {
         var users = this.IUserRepository.findAll();
         return ResponseEntity.ok(users);
+    }
+
+    @Override
+    public ResponseEntity<?> getByName(String name) {
+        Optional<UserEntity> user = this.IUserRepository.findByName(name);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.ok(new UserEntity());
     }
 }

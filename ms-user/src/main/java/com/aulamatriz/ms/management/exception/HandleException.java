@@ -1,5 +1,6 @@
 package com.aulamatriz.ms.management.exception;
 
+import com.aulamatriz.ms.management.configs.ExceptionConfigs;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +17,14 @@ import java.util.List;
 @Slf4j
 @ControllerAdvice
 @AllArgsConstructor
-@NoArgsConstructor
 public class HandleException {
 
-    @Value("${control.my-exception}")
-    private String errorNegocio ;
+    private final ExceptionConfigs exceptionConfigs;
 
     //metodo para el manejo de errores no controlados
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleExceptionMethod(Exception e){
-        var error = "Error del sistema :" + e.getMessage();
+        var error = exceptionConfigs.getException(ExceptionConfigs.SYSYEM)  + ":" + e.getMessage();
         log.error(error);
         return ResponseEntity
                 .badRequest()
@@ -35,7 +34,7 @@ public class HandleException {
     //metodo para el manejo de errores controlados
     @ExceptionHandler(MyHandleException.class)
     public ResponseEntity<String> myHandleExceptionMethod(Exception e){
-        var error =  errorNegocio + " : " + e.getMessage();
+        var error =  exceptionConfigs.getException(ExceptionConfigs.PERZONALIZADA) + " : " + e.getMessage();
         log.error(error);
         return ResponseEntity
                 .badRequest()
@@ -48,8 +47,8 @@ public class HandleException {
         for(FieldError error : ex.getBindingResult().getFieldErrors()){
             errorList.add(
                     """
-                       Error del sistema %s: %s: %s
-                        """.formatted(error.getObjectName(), error.getField(), error.getDefaultMessage())
+                       Error del sistema %s [%s: %s: %s]
+                        """.formatted( exceptionConfigs.getException(ExceptionConfigs.PERZONALIZADA),error.getObjectName(), error.getField(), error.getDefaultMessage())
             );
         }
         //java <11+ Streams
