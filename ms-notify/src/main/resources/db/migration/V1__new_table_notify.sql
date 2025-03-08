@@ -1,0 +1,5 @@
+CREATE TABLE notify (
+    id VARCHAR(50) PRIMARY KEY,
+    message TEXT NOT NULL,
+    reated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

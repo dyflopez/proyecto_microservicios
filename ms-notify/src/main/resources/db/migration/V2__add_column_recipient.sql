@@ -1,0 +1,1 @@
+ALTER TABLE notify ADD COLUMN recipient VARCHAR(255) NOT NULL;
