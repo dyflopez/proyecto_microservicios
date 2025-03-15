@@ -29,7 +29,7 @@ public class EmailConsumer {
         try {
             String json = message.getPayload();
             log.info("EmailConsumer: " + json);
-           emailDetails = JsonUtils.jsonToObject(json, JmsEmailDetailsDto.class);
+            emailDetails = JsonUtils.jsonToObject(json, JmsEmailDetailsDto.class);
             log.info("EmailConsumer: " + emailDetails);
             emailService.sendEmail(emailDetails);
         }catch (Exception e){
