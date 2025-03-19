@@ -1,6 +1,8 @@
 package com.aulamatriz.ms.management.service.impl;
 
+import com.aulamatriz.ms.management.dto.NotifyDto;
 import com.aulamatriz.ms.management.dto.UserDto;
+import com.aulamatriz.ms.management.external.service.IFeignNotifyServiceEmail;
 import com.aulamatriz.ms.management.model.UserEntity;
 import com.aulamatriz.ms.management.repository.IUserRepository;
 import com.aulamatriz.ms.management.service.IUserService;
@@ -17,6 +19,8 @@ public class UserServiceImp implements IUserService {
 
     private final IUserRepository IUserRepository;
 
+    private final IFeignNotifyServiceEmail iNotifyServiceEmail;
+
     @Override
     public ResponseEntity<?> create(UserDto userDto) {
 
@@ -27,6 +31,15 @@ public class UserServiceImp implements IUserService {
         userEntity.setTypeDocument(userDto.getTypeDocument());
 
         UserEntity newUser = this.IUserRepository.save(userEntity);
+
+        NotifyDto notifyDto = NotifyDto
+                .builder()
+                .message("New user created")
+                .recipient(userDto.getEmail())
+                .build();
+
+
+        this.iNotifyServiceEmail.sendNotification(notifyDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(newUser);
