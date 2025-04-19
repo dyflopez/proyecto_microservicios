@@ -40,7 +40,7 @@ public class HandleException {
                 .badRequest()
                 .body(error);
     }
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+   @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleExceptionArgument(MethodArgumentNotValidException ex){
         List<String> errorList = new ArrayList<>();
         //Java  > 8

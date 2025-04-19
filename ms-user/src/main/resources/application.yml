@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/db-user
     username: root
-    password: Bancolombia123
+    password: netect123
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
